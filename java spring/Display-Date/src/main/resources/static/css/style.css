@@ -1,0 +1,16 @@
+div {
+	text-align:center;
+	margin-top:15rem;
+	display:flex;
+	justify-content:space-evenly;
+}
+
+a{
+		color: blue;
+		margin-right:2rem;
+}
+
+h1{
+		text-align:center;
+	margin-top:15rem;
+}
