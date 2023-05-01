@@ -41,6 +41,8 @@ public class NinjaController {
 		if(farm != null) {
 			int amount = new Random().nextInt(11)+10;
 			gold+=amount;
+activities.add("test1");
+activities.add("test2");
 			activities.add(0, "You entered a farm and earned "+amount+" gold. ("+ simpleFormat.format(new Date())+")");
 			Session.setAttribute("activities", activities);
 			Session.setAttribute("gold", gold);

@@ -11,7 +11,12 @@
 <body>
 
 <c:forEach var="activity" items="${activities}">
-<p><c:out value="${activity}"/></p>
+<c:if test="${activity.contains('earned')}">
+	<p style="color:green;"><c:out value="${activity}"/></p>
+	</c:if>
+	<c:if test="${activity.contains('lost')}">
+	<p style="color:red;"><c:out value="${activity}"/></p>
+	</c:if>
 </c:forEach>
 
 </body>
