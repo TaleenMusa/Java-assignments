@@ -30,7 +30,7 @@
             <td>${burger.burger_name}</td>
             <td>${burger.restaurant_name}</td>
             <td>${burger.rating}</td>
-            <td><a href="/edit/${burger.id}">edit</a></td>
+            <td><a href="/burger/${burger.id}/edit">edit</a></td>
             
         </tr>
     </c:forEach>

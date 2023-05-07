@@ -39,10 +39,10 @@ private final BurgerRepository burgerRepository;
 		 burgerRepository.deleteById(id);
 		
 	}
-	public Burger updateBurger(Burger b) {
+	public void updateBurger(Burger b) {
 		// TODO Auto-generated method stub
-		burgerRepository.save(b);
-		return b;
+		 burgerRepository.save(b);
+//		return b;
 
 	}
 }
