@@ -3,6 +3,7 @@ package com.axsos.dojo.models;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,40 +21,54 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 @Entity
-@Table(name="Ninjas")
+@Table(name="ninjas")
 public class Ninja {
-    
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @Size(min = 5, max = 200)
+    @Size(min = 3, max = 200)
     private String firstName;
     @NotNull
-    @Size(min = 5, max = 200)
+    @Size(min = 3, max = 200)
     private String lastName;
     @NotNull
-    @Min(0)
-    @Max(100)
-    private String age;
-  
+    @Min(18)
+    @Max(60)
+    private Integer age;
+    // This will not allow the createdAt column to be updated after creation
     @Column(updatable=false)
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createdAt;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;
+    
+    @PreUpdate
+    protected void onUpdate(){
+        this.updatedAt = new Date();
+    }
+	
+	@PrePersist
+    protected void onCreate(){
+        this.createdAt = new Date();
+    }
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="dojo_id")
     private Dojo dojo;
     
-    public Ninja() {
-        
-    }    
-    // other getters and setters removed for brevity
     
-    @PrePersist
-    protected void onCreate(){
-        this.createdAt = new Date();
+    
+    public Ninja() {
     }
-    public Long getId() {
+    public Ninja(String firstName, String lastName, int age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.lastName = lastName;
+       
+    }
+
+	public Long getId() {
 		return id;
 	}
 
@@ -77,11 +92,11 @@ public class Ninja {
 		this.lastName = lastName;
 	}
 
-	public String getAge() {
+	public Integer getAge() {
 		return age;
 	}
 
-	public void setAge(String age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 
@@ -101,20 +116,11 @@ public class Ninja {
 		this.updatedAt = updatedAt;
 	}
 
-
-
 	public Dojo getDojo() {
 		return dojo;
 	}
 
 	public void setDojo(Dojo dojo) {
 		this.dojo = dojo;
-	}
-
-	@PreUpdate
-    protected void onUpdate(){
-        this.updatedAt = new Date();
-    }
+	} 
 }
-
-

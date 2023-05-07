@@ -15,7 +15,7 @@
 </head>
 <body>
 <h1>New Ninja</h1>
-<form:form action="/ninjas/new" method="post" modelAttribute="ninja">
+<form:form action="/ninja" method="post" modelAttribute="ninja">
 	<p>
         <form:label path="dojo">Dojo : </form:label>
         <form:select path="dojo">

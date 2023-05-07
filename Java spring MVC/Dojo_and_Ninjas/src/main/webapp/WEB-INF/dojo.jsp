@@ -16,7 +16,7 @@
 </head>
 <body>
 <h2>New Dojo :</h2>
-<form:form action="/dojos/new" method="POST" modelAttribute="dojo">
+<form:form action="/dojo" method="POST" modelAttribute="dojo">
   <p>
     <form:label path="name">Name :</form:label>
     <form:errors path="name"/>

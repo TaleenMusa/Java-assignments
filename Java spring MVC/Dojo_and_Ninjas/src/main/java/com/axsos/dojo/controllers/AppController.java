@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.axsos.dojo.models.Dojo;
 import com.axsos.dojo.models.Ninja;
 import com.axsos.dojo.services.AppServices;
-
 
 import jakarta.validation.Valid;
 
@@ -25,13 +25,12 @@ public class AppController {
         this.appServices= appServices;
     }
 	
-	@GetMapping("/dojos/new")
+	@RequestMapping("/dojos/new")
     public String newDojo(@ModelAttribute("dojo") Dojo dojo) {
-	 
         return "dojo.jsp";
     }
 	
-	@PostMapping("/newdojo")
+	@RequestMapping("/dojo")
     public String createDojo(@Valid @ModelAttribute("dojo") Dojo dojo, BindingResult result) {
         if (result.hasErrors()) {
             return "dojo.jsp";
@@ -43,19 +42,16 @@ public class AppController {
         }
 	}
         
-        @GetMapping("/ninjas/new")
+	@RequestMapping("/ninjas/new")
         public String newNinja(@ModelAttribute("ninja") Ninja ninja,Model model) {
         	List<Dojo> allDojos=appServices.allDojos();
        	 model.addAttribute("alldojos",allDojos);
             return "ninja.jsp";
         }
-        
-        
-        @PostMapping("/newninja")
+	
+	@RequestMapping("/ninja")
         public String createNinja(@Valid @ModelAttribute("ninja") Ninja ninja, BindingResult result,Model model) {
                 if (result.hasErrors()) {
-                	List<Dojo> allDojos=appServices.allDojos();
-                  	 model.addAttribute("alldojos",allDojos);
                     return "ninja.jsp";
                 }
                 else {
@@ -64,15 +60,10 @@ public class AppController {
                 }
             }
                 
-                @GetMapping("/dojos/{id}")
+	@RequestMapping("/dojos/{id}")
         	    public String viewDojo(@PathVariable("id") Long id,Model model) {
         		 Dojo dojo1 = appServices.findDojo(id);
         	     model.addAttribute("dojo",dojo1);
         	        return "data.jsp";
         	    }
     }
-	
-	
-	
-	
-	
