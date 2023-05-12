@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.coding.dojo.models.Expense;
 import com.coding.dojo.services.ExpenseService;
+import com.example.demo.models.Burger;
 
 import jakarta.validation.Valid;
 @Controller
@@ -43,14 +46,14 @@ public class ExpenseController {
     }
 	
 	
-	 @GetMapping("/edit/{id}")
-	    public String edit(@ModelAttribute("expense") Expense expense,@PathVariable("id") Long id,Model model) {
+	 @RequestMapping("/edit/{id}")
+	    public String edit(@PathVariable("id") Long id,Model model) {
 		     Expense expense1 = expenseService.findExpense(id);
 		     model.addAttribute("expense",expense1);
 		     return "edit.jsp";
 	    }
 	 
-	 @PutMapping("/handle")
+	 @RequestMapping(value="/handle/{id}",method=RequestMethod.PUT)
 	    public String editing(@Valid @ModelAttribute("expense") Expense expense,BindingResult result,Model model) {
 	    	if (result.hasErrors()) {
 			     model.addAttribute("expense",expense);

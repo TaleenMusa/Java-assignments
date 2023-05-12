@@ -11,29 +11,35 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Home</title>
+<title>Products Page</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css"> <!-- change to match your file/naming structure -->
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/app.js"></script><!-- change to match your file/naming structure -->
 </head>
 <body>
-	<h1>Home Page</h1>
-	<p><a href="/products/new" >New Product</a></p>
-	<p><a href="/categories/new" >New Category</a></p>
-	<table>
-<p>Products</p>
-	<ul class="list-group">
-	<c:forEach items="${allproducts}" var="pd">
-  <li class="list-group-item"><a href="/products/${pd.id}">${pd.name }</a></li>
-  </c:forEach>
-</ul>
-<p>Categories</p>
+	<h1>${product.name}</h1>
+	<p><a href="/" >Home</a></p>
+	
+	<p>Categories:</p>
 <ul class="list-group">
-	<c:forEach items="${allcategories}" var="ct">
-  <li class="list-group-item"><a href="/categories/${ct.id}">${ct.name }</a></li>
+	<c:forEach items="${existingcategories}" var="categ">
+  <li class="list-group-item">${categ.name}</li>
   </c:forEach>
 </ul>
-	</table>
+	
+	<form action="//products/new/${cat.id}" method="post" >
+	<p><input type="hidden" name="prodid" value="${product.id}"/></p>
+    <p>
+        <label >Add Category: </label>
+        <select name="catid">
+            <c:forEach items="${missingcategories}" var="cat">
+                <option value="${cat.id}">${cat.name}</option>
+            </c:forEach>
+        </select>
+    </p>
+    <input type="submit" value="Submit"/>
+</form> 
+
 </body>
 </html>

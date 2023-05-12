@@ -1,3 +1,4 @@
+
 package com.axsos.spring.controllers;
 
 import java.util.List;
@@ -5,8 +6,13 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.axsos.spring.models.Category;
 import com.axsos.spring.models.Product;
 import com.axsos.spring.services.AppService;
@@ -63,18 +69,65 @@ public class AppController {
             }
         }
 	
+	@RequestMapping("/products/new/{id}")
+	public String addProductToCat(@PathVariable("id") Long id ,Model model) {
+		Product pro=appService.findProduct(id);
+		model.addAttribute("pro1",pro);
+		model.addAttribute("category",appService.findByProductsNotContains(pro));
+		return "viewproduct.jsp";
+		
+	}
+	@PostMapping("/products/new/{id}")
+	public String submitProductToForm(@PathVariable("id") Long id,@RequestParam("category") Long Cat_id,Model model) {
+		Category category=appService.findCategory(Cat_id);
+		Product pro=appService.findProduct(id);
+		List<Category> cat=pro.getCategories();
+		cat.add(category);
+		pro.setCategories(cat);
+		appService.updateProduct(pro);
+		return "redirect:/";
+			
+	}
+	// added category to product 
+	@RequestMapping("/category/new/{id}")
+	public String addCategoryToProduct(@PathVariable("id") Long id ,Model model) {
+		Category cat =appService.findCategory(id);
+		model.addAttribute("cat1",cat);
+		model.addAttribute("product",appService.findByCategoriesNotContains(cat));
+		return "viewcategory.jsp";
+	}
+	@PostMapping("/category/new/{id}")
+	public String submitCategoryToForm(@PathVariable("id") Long id,@RequestParam("product") Long prod_id,Model model) {
+		Category category =appService.findCategory(id);
+		Product pro=appService.findProduct(prod_id);
+		List<Product> prod=category.getProducts();
+		prod.add(pro);
+		category.setProducts(prod);
+		appService.updateCategory(category);
+
+		return "redirect:/";
+		
+	}
+	@GetMapping("/products/{id}")
+    public String viewProduct(@PathVariable("id") Long id,Model model,@ModelAttribute("product") Product product) {
+	 Product product1 = appService.findProduct(id);
+     model.addAttribute("product",product1);
+     List<Category> missingCategories=appService.findByProductsNotContains(product1);
+ 	 model.addAttribute("missingcategories",missingCategories);
+ 	List<Category> existingCategories=appService.findCategoriesByProduct(product1);
+	 model.addAttribute("existingcategories",existingCategories);
+        return "viewproduct.jsp";
+    }
 	
+	@GetMapping("/categories/{id}")
+    public String viewCategory(@PathVariable("id") Long id,Model model,@ModelAttribute("category") Category category) {
+	 Category category1 = appService.findCategory(id);
+     model.addAttribute("category",category1);
+     List<Product> missingProducts=appService.findByCategoriesNotContains(category1);
+ 	 model.addAttribute("missingproducts",missingProducts);
+ 	List<Product> existingProducts=appService.findProductsByCategory(category1);
+	 model.addAttribute("existingproducts",existingProducts);
+        return "viewcategory.jsp";
+    }
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}
