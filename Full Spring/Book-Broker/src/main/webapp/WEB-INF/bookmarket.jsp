@@ -11,14 +11,14 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Read Share</title>
+    <title>Book Lender Dashboard</title>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css"> <!-- change to match your file/naming structure -->
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/app.js"></script><!-- change to match your file/naming structure -->
 </head>
 <body>
-		<div class="container-fluid">
+	<div class="container-fluid">
 		<div class="row d-flex justify-content-between">
 			<div class="col">
 				<h1>Hello, ${thisUser.userName}.Welcome to... </h1>

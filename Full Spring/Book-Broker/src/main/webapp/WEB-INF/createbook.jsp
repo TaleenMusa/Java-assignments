@@ -21,9 +21,9 @@
 			<div class="col">
 				<h1>Add a Book to Your Shelf! </h1>
 			</div>
-			<div class="col-md-4 d-flex flex-column justify-content-center align-items-end">
-                <p><a href="/books/new" class="btn btn-outline-primary">Add a book to my shelf!</a></p>
-            </div>
+			<div class="col">
+				<p><a href="/books">back to the shelves</a></p>
+			</div>
 		</div>
 		
 		<form:form action="/newbook" method="post" modelAttribute="book">
@@ -43,11 +43,10 @@
 		            <form:errors path="myThoughts" class="text-danger" />
 		        </div>
 		        <div class="form-group">
-		            <form:input type="hidden" path="user"  value="${user_id}"  class="form-control" />
+		            <form:input type="hidden" path="owner"  value="${user_id}"  class="form-control" />
 		        </div>
-		        <input type="submit" value="Submit" class="btn btn-outline-danger" />
+		        <input type="submit" value="Submit" class="btn btn-success"/>
 		    </form:form>
 	</div>
 </body>
 </html>
-

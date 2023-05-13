@@ -132,4 +132,13 @@ public class Book {
     protected void onCreate(){
         this.createdAt = new Date();
     }
+	 private String owner;
+
+	    public String getOwner() {
+	        return owner;
+	    }
+
+	    public void setOwner(String owner) {
+	        this.owner = owner;
+	    }
 }
